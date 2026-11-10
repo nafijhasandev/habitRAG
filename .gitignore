@@ -1,0 +1,45 @@
+# Data (generated, large)
+data/
+chroma/
+*.pkl
+*.pdf
+
+# Python
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Planning docs (local only)
+AGENTS.md
+SRS*.md
+PLAN*.md
+TASKS*.md
+
+# Logs
+*.log

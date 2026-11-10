@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Atomic Habits</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar" id="sidebar" aria-label="Chat history">
+            <div class="sidebar-top">
+                <div class="sidebar-brand">
+                    <img src="/static/atomic-habits-logo.png" alt="Atomic Habits logo" class="brand-logo">
+                    <span>Atomic Habits</span>
+                </div>
+                <button type="button" class="new-chat" id="newChatBtn">+ New chat</button>
+            </div>
+            <div class="history-label">Recent chats</div>
+            <nav class="chat-list" id="chatList" aria-label="Saved chats"></nav>
+            <p class="history-note" id="historyNotice" role="status" hidden></p>
+            <div class="sidebar-bottom">
+                <button type="button" class="settings-button" id="settingsBtn" aria-haspopup="dialog">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.05.05-1.8 1.8-.05-.05a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.05 1.56V20h-2.6v-.08a1.7 1.7 0 0 0-1.05-1.56 1.7 1.7 0 0 0-1.87.34l-.05.05-1.8-1.8.05-.05A1.7 1.7 0 0 0 8 15a1.7 1.7 0 0 0-1.56-1.05H6v-2.6h.44A1.7 1.7 0 0 0 8 10.3a1.7 1.7 0 0 0-.34-1.87l-.05-.05 1.8-1.8.05.05a1.7 1.7 0 0 0 1.87.34A1.7 1.7 0 0 0 12.4 5.4V5h2.6v.4a1.7 1.7 0 0 0 1.05 1.56 1.7 1.7 0 0 0 1.87-.34l.05-.05 1.8 1.8-.05.05a1.7 1.7 0 0 0-.34 1.87 1.7 1.7 0 0 0 1.56 1.05H21v2.6h-.06A1.7 1.7 0 0 0 19.4 15Z"></path>
+                    </svg>
+                    Settings
+                </button>
+                <span>Saved in this browser</span>
+            </div>
+        </aside>
+        <button type="button" class="sidebar-backdrop" id="sidebarBackdrop" aria-label="Close chat history"></button>
+
+        <div class="main-panel">
+            <header class="header">
+                <div class="header-left">
+                    <button type="button" class="menu-button" id="sidebarToggle" aria-label="Toggle chat history" aria-controls="sidebar" aria-expanded="false">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                            <path d="M4 7h16M4 12h16M4 17h16"></path>
+                        </svg>
+                    </button>
+                    <span class="header-title">Ask Atomic Habits</span>
+                </div>
+                <div class="header-actions">
+                    <div class="status" role="status" aria-live="polite">
+                        <span class="dot" id="statusDot"></span>
+                        <span id="statusText">Checking connection</span>
+                    </div>
+                    <span class="theme-notice" id="themeNotice" role="status" hidden></span>
+                    <button type="button" class="theme-button" id="themeToggle" aria-label="Switch to light mode" title="Switch to light mode">
+                        <svg class="theme-icon moon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M20.9 13.1A9 9 0 0 1 10.9 3.1a9 9 0 1 0 10 10Z"></path>
+                        </svg>
+                        <svg class="theme-icon sun" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <main class="chat-container" id="chatContainer" aria-live="polite">
+                <section class="welcome-message" id="welcome">
+                    <img src="/static/atomic-habits-logo.png" alt="" class="welcome-logo">
+                    <span class="eyebrow">A focused reading companion</span>
+                    <h1>What would you like to know?</h1>
+                    <p>Explore the ideas, examples, and chapters in <em>Atomic Habits</em>.</p>
+                </section>
+            </main>
+
+            <footer class="input-area">
+                <form id="queryForm" onsubmit="handleSubmit(event)">
+                    <div class="input-wrapper">
+                        <textarea
+                            id="queryInput"
+                            aria-label="Ask a question about Atomic Habits"
+                            placeholder="Ask about Atomic Habits..."
+                            maxlength="1000"
+                            rows="1"
+                            autofocus
+                        ></textarea>
+                        <button type="submit" id="sendBtn" aria-label="Send question">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 19V5"></path>
+                                <path d="m5 12 7-7 7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="input-note">Answers are based on the book. Press Enter to send.</p>
+                </form>
+                <div class="suggestions">
+                    <button class="suggestion" onclick="askSuggestion(this)">What are the four laws of behavior change?</button>
+                    <button class="suggestion" onclick="askSuggestion(this)">Explain the two-minute rule</button>
+                    <button class="suggestion" onclick="askSuggestion(this)">How does habit stacking work?</button>
+                    <button class="suggestion" onclick="askSuggestion(this)">Why do small habits matter?</button>
+                </div>
+            </footer>
+        </div>
+        <aside class="pdf-panel" id="pdfPanel" aria-label="PDF source" hidden>
+            <div class="pdf-panel-header">
+                <div class="pdf-panel-location">
+                    <span>Atomic Habits · <span id="pdfPage">Page 1</span></span>
+                    <strong id="pdfTopic">Source topic</strong>
+                </div>
+                <button type="button" class="pdf-close" id="closePdfBtn" aria-label="Close PDF viewer">×</button>
+            </div>
+            <iframe id="pdfFrame" title="Atomic Habits PDF source"></iframe>
+        </aside>
+    </div>
+
+    <dialog class="settings-dialog" id="settingsDialog" aria-labelledby="settingsTitle">
+        <div class="settings-header">
+            <h2 id="settingsTitle">Settings</h2>
+            <button type="button" class="settings-close" id="closeSettingsBtn" aria-label="Close settings">×</button>
+        </div>
+        <label class="setting-row" for="showSourcesToggle">
+            <span>
+                <strong>Show source citations</strong>
+                <small>Display book passages below answers.</small>
+            </span>
+            <input type="checkbox" id="showSourcesToggle" checked>
+        </label>
+        <p class="settings-note">Chat history and settings are stored in this browser.</p>
+        <p class="settings-error" id="settingsNotice" role="status" hidden></p>
+    </dialog>
+
+    <script src="/static/history.js"></script>
+    <script src="/static/settings.js"></script>
+    <script src="/static/answer_format.js"></script>
+    <script src="/static/stream_events.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+</html>
